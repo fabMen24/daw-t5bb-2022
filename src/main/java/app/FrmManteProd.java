@@ -224,7 +224,7 @@ public class FrmManteProd extends JFrame {
 
 					txtSalida.append("Precio   : " + Double.toString(p.getPrecio()) + "\n");
 
-					//txtSalida.append("Id Categoria: " +Integer.toString(p.getCodigocategoria())+"\n");
+					
 					txtSalida.append("Categoria: " + p.getCodigocategoria() + "/" + p.getCategoria().getDescripcion() + "\n");
 					
 					txtSalida.append("Estado   : " +Integer.toString(p.getEstado())+"\n");
@@ -275,8 +275,33 @@ public class FrmManteProd extends JFrame {
 		
 	}
 	void Buscar() {
-		
-	}
+		//variables
+				EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("mysql");
+				EntityManager em = fabrica.createEntityManager();
+				//proceso
+
+				//empezo la transaccion
+
+				//em.getTransaction().begin();
+
+				//proceso -- buscar usuario
+
+				Producto p = em.find(Producto.class, txtCódigo.getText());
+
+				//Salida
+
+				txtDescripcion.setText(p.getDescription());
+				//cboCategorias.setSelectedItem(p.getCategoria().getDescripcion());
+				cboCategorias.setSelectedIndex(p.getCodigocategoria());
+				txtPrecio.setText(Double.toString(p.getPrecio()));
+				txtStock.setText(Integer.toString(p.getStock()));
+				cboProveedores.setSelectedItem(p.getProveedor().getNombre_rs());
+
+				em.close();	
+				
+
+			}
+	
 	void Eliminar() {
 		
 	}
